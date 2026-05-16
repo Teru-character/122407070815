@@ -10,6 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;500;700&family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -27,6 +28,7 @@ body{
 }
 
 /* 배경 빛 */
+
 .bg-glow{
     position:fixed;
     width:450px;
@@ -90,6 +92,7 @@ body{
 }
 
 /* 카드 */
+
 .card{
     width:300px;
     height:440px;
@@ -137,6 +140,7 @@ body{
 }
 
 /* 이미지 */
+
 .image-box{
     width:100%;
     height:300px;
@@ -160,6 +164,7 @@ body{
 }
 
 /* 정보 */
+
 .info{
     padding:20px;
 }
@@ -195,6 +200,7 @@ body{
 }
 
 /* 음악 버튼 */
+
 .music-btn{
     position:fixed;
     bottom:25px;
@@ -214,6 +220,8 @@ body{
     border:1px solid rgba(255,255,255,.12);
 
     transition:.3s;
+
+    z-index:999;
 }
 
 .music-btn:hover{
@@ -231,7 +239,163 @@ body{
     }
 }
 
+/* =========================
+미니게임 영역
+========================= */
+
+.mini-game{
+    position:relative;
+    width:100%;
+    height:900px;
+    margin-top:120px;
+    overflow:hidden;
+
+    border-top:
+    1px solid rgba(255,255,255,.08);
+}
+
+.game-bg{
+    position:absolute;
+    inset:0;
+
+    background-image:url('bg_day.jpg');
+    background-size:cover;
+    background-position:center;
+
+    transition:1s;
+    transform:scale(1.02);
+}
+
+.game-overlay{
+    position:absolute;
+    inset:0;
+
+    background:
+    linear-gradient(
+    to bottom,
+    rgba(0,0,0,.15),
+    rgba(0,0,0,.6));
+
+    z-index:1;
+}
+
+.time-box{
+    position:absolute;
+    top:40px;
+    left:50px;
+    z-index:5;
+}
+
+#clock{
+    font-size:5rem;
+    font-weight:700;
+}
+
+#timeText{
+    opacity:.7;
+    font-size:1.2rem;
+}
+
+.character-area{
+    position:absolute;
+    bottom:120px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:4;
+}
+
+.character-area img{
+    width:500px;
+    max-width:90vw;
+
+    animation:
+    floatChar 4s ease-in-out infinite;
+}
+
+@keyframes floatChar{
+
+    0%{
+        transform:translateY(0px);
+    }
+
+    50%{
+        transform:translateY(-10px);
+    }
+
+    100%{
+        transform:translateY(0px);
+    }
+}
+
+.dialog-box{
+    position:absolute;
+    bottom:0;
+    left:0;
+
+    width:100%;
+    padding:35px;
+
+    background:
+    rgba(0,0,0,.45);
+
+    backdrop-filter:blur(14px);
+
+    z-index:10;
+}
+
+.name-tag{
+    font-size:1.5rem;
+    margin-bottom:12px;
+    color:#ffe178;
+}
+
+#dialog{
+    font-size:1.6rem;
+    line-height:1.6;
+    min-height:60px;
+}
+
+.buttons{
+    margin-top:25px;
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.buttons button{
+
+    border:none;
+    padding:14px 22px;
+
+    border-radius:999px;
+
+    background:
+    rgba(255,255,255,.1);
+
+    color:white;
+
+    cursor:pointer;
+
+    font-family:
+    'Cormorant Garamond', serif;
+
+    font-size:1rem;
+
+    border:
+    1px solid rgba(255,255,255,.1);
+
+    transition:.3s;
+}
+
+.buttons button:hover{
+    transform:scale(1.06);
+
+    background:
+    rgba(255,255,255,.18);
+}
+
 /* 모바일 */
+
 @media(max-width:768px){
 
 .title{
@@ -247,7 +411,25 @@ body{
 .image-box{
     height:340px;
 }
+
+.mini-game{
+    height:760px;
 }
+
+#clock{
+    font-size:3rem;
+}
+
+.character-area img{
+    width:340px;
+}
+
+#dialog{
+    font-size:1.2rem;
+}
+
+}
+
 </style>
 </head>
 
@@ -320,12 +502,66 @@ ondblclick="location.href='david.html'">
 </div>
 </div>
 
+<!-- =========================
+미니게임
+========================= -->
+
+<section class="mini-game">
+
+<div class="game-bg" id="gameBg"></div>
+
+<div class="game-overlay"></div>
+
+<div class="time-box">
+<div id="clock">14:00</div>
+<p id="timeText">낮</p>
+</div>
+
+<div class="character-area">
+
+<img
+id="character"
+src="char_day.png"
+alt="캐릭터">
+
+</div>
+
+<div class="dialog-box">
+
+<div class="name-tag">
+에이든 필립
+</div>
+
+<p id="dialog">
+오늘도 왔네.
+</p>
+
+<div class="buttons">
+
+<button onclick="touchCharacter()">
+쓰다듬기
+</button>
+
+<button onclick="talkCharacter()">
+대화하기
+</button>
+
+<button onclick="changeTime()">
+시간 변경
+</button>
+
+</div>
+</div>
+</section>
+
 <!-- BGM -->
+
 <audio id="bgm" autoplay loop>
 <source src="bgm.mp3" type="audio/mpeg">
 </audio>
 
 <!-- 캐릭터 음성 -->
+
 <audio id="ax09voice" src="ax09.mp3"></audio>
 <audio id="aidenvoice" src="aiden.mp3"></audio>
 <audio id="davidvoice" src="david.mp3"></audio>
@@ -336,33 +572,30 @@ onclick="toggleMusic()">
 </button>
 
 <script>
+
 const music =
 document.getElementById("bgm");
 
-/* -----------------
-   볼륨 기본값
------------------- */
+/* BGM 볼륨 */
 
-/* BGM 볼륨 (0~1) */
 music.volume = 0.22;
 
-/* 음성 요소 */
+/* 음성 */
+
 const voices = [
     document.getElementById("ax09voice"),
     document.getElementById("aidenvoice"),
     document.getElementById("davidvoice")
 ];
 
-/* 음성 볼륨 크게 */
 voices.forEach(v => {
     v.volume = 1.0;
 });
 
-/* -----------------
-   음악 버튼
------------------- */
+/* 음악 버튼 */
 
 function toggleMusic(){
+
     if(music.paused){
         music.play();
     }else{
@@ -370,35 +603,188 @@ function toggleMusic(){
     }
 }
 
-/* 자동재생 제한 대응 */
+/* 자동재생 대응 */
+
 window.addEventListener("click", () => {
     music.play().catch(() => {});
 },{ once:true });
 
-/* -----------------
-   캐릭터 음성 재생
------------------- */
+/* 음성 재생 */
 
 function playVoice(id){
 
     const voice =
     document.getElementById(id);
 
-    /* 다른 음성 끄기 */
     voices.forEach(v => {
         v.pause();
         v.currentTime = 0;
     });
 
-    /* BGM 잠깐 줄이기 */
     music.volume = 0.08;
 
     voice.currentTime = 0;
     voice.play();
 
-    /* 음성 끝나면 BGM 복구 */
     voice.onended = () => {
         music.volume = 0.22;
     };
 }
+
+/* =========================
+미니게임
+========================= */
+
+const phases = [
+
+{
+    name:"아침",
+    clock:"08:00",
+    bg:"bg_morning.jpg",
+    char:"char_morning.png",
+    dialogs:[
+        "좋은 아침.",
+        "일찍 일어났네.",
+        "아직 졸려..."
+    ]
+},
+
+{
+    name:"낮",
+    clock:"14:00",
+    bg:"bg_day.jpg",
+    char:"char_day.png",
+    dialogs:[
+        "오늘도 왔네.",
+        "무슨 일 있어?",
+        "햇빛이 밝네."
+    ]
+},
+
+{
+    name:"저녁",
+    clock:"18:30",
+    bg:"bg_evening.jpg",
+    char:"char_evening.png",
+    dialogs:[
+        "노을이 예쁘다.",
+        "오늘 하루 어땠어?",
+        "조용하네."
+    ]
+},
+
+{
+    name:"밤",
+    clock:"23:40",
+    bg:"bg_night.jpg",
+    char:"char_night.png",
+    dialogs:[
+        "안 자고 있었어?",
+        "밤 공기 좋아.",
+        "조금 피곤하네."
+    ]
+}
+
+];
+
+let currentPhase = 1;
+
+const gameBg =
+document.getElementById("gameBg");
+
+const character =
+document.getElementById("character");
+
+const clock =
+document.getElementById("clock");
+
+const timeText =
+document.getElementById("timeText");
+
+const dialog =
+document.getElementById("dialog");
+
+/* 시간 적용 */
+
+function applyPhase(){
+
+    const phase =
+    phases[currentPhase];
+
+    gameBg.style.backgroundImage =
+    `url('${phase.bg}')`;
+
+    character.src =
+    phase.char;
+
+    clock.innerText =
+    phase.clock;
+
+    timeText.innerText =
+    phase.name;
+
+    dialog.innerText =
+    phase.dialogs[
+        Math.floor(
+            Math.random()
+            * phase.dialogs.length
+        )
+    ];
+}
+
+/* 시간 변경 */
+
+function changeTime(){
+
+    currentPhase++;
+
+    if(currentPhase >= phases.length){
+        currentPhase = 0;
+    }
+
+    applyPhase();
+}
+
+/* 대화 */
+
+function talkCharacter(){
+
+    const phase =
+    phases[currentPhase];
+
+    dialog.innerText =
+    phase.dialogs[
+        Math.floor(
+            Math.random()
+            * phase.dialogs.length
+        )
+    ];
+}
+
+/* 쓰다듬기 */
+
+function touchCharacter(){
+
+    character.style.transform =
+    "scale(1.05)";
+
+    dialog.innerText =
+    "......";
+
+    setTimeout(()=>{
+
+        character.style.transform =
+        "scale(1)";
+
+        dialog.innerText =
+        "왜 그래?";
+
+    },300);
+}
+
+applyPhase();
+
 </script>
+
+</body>
+</html>
