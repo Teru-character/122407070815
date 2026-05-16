@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>다비드 타이머</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;500;700&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    width:100%;
+    height:100vh;
+
+    overflow:hidden;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+
+    background:
+    radial-gradient(circle at top,
+    #18243d,
+    #070b12 70%);
+
+    color:white;
+
+    font-family:
+    'Cormorant Garamond',
+    serif;
+}
+
+h1{
+
+    font-size:4rem;
+
+    margin-bottom:20px;
+}
+
+.timer{
+
+    font-size:6rem;
+
+    margin-bottom:35px;
+
+    font-weight:700;
+}
+
+.controls{
+
+    display:flex;
+    gap:15px;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+}
+
+.controls input{
+
+    width:120px;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:
+    rgba(255,255,255,.08);
+
+    color:white;
+
+    text-align:center;
+
+    font-size:1.1rem;
+}
+
+.controls button{
+
+    padding:14px 22px;
+
+    border:none;
+
+    border-radius:999px;
+
+    cursor:pointer;
+
+    background:
+    rgba(255,255,255,.08);
+
+    color:white;
+
+    border:
+    1px solid rgba(255,255,255,.1);
+
+    transition:.3s;
+}
+
+.controls button:hover{
+
+    transform:
+    scale(1.06);
+}
+
+.back-btn{
+
+    margin-top:40px;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>
+다비드 타이머
+</h1>
+
+<div class="timer"
+id="timer">
+
+00:00
+
+</div>
+
+<div class="controls">
+
+<input
+type="number"
+id="minutes"
+placeholder="분">
+
+<button onclick="startTimer()">
+START
+</button>
+
+<button onclick="stopTimer()">
+STOP
+</button>
+
+</div>
+
+<button
+class="back-btn controls button"
+onclick="location.href='index.html'">
+
+메인으로
+
+</button>
+
+<audio id="alarm"
+src="david_alarm.mp3"></audio>
+
+<script>
+
+let timer;
+let totalSeconds = 0;
+
+const timerText =
+document.getElementById("timer");
+
+const alarm =
+document.getElementById("alarm");
+
+function startTimer(){
+
+    clearInterval(timer);
+
+    const minutes =
+    parseInt(
+        document.getElementById("minutes").value
+    ) || 0;
+
+    totalSeconds =
+    minutes * 60;
+
+    updateDisplay();
+
+    timer = setInterval(()=>{
+
+        totalSeconds--;
+
+        updateDisplay();
+
+        if(totalSeconds <= 0){
+
+            clearInterval(timer);
+
+            alarm.play();
+
+            alert("시간 종료");
+        }
+
+    },1000);
+}
+
+function stopTimer(){
+
+    clearInterval(timer);
+}
+
+function updateDisplay(){
+
+    const min =
+    Math.floor(totalSeconds / 60);
+
+    const sec =
+    totalSeconds % 60;
+
+    timerText.innerText =
+    `${String(min).padStart(2,"0")}:${String(sec).padStart(2,"0")}`;
+}
+
+</script>
+
+</body>
+</html>
