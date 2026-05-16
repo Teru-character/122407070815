@@ -220,7 +220,94 @@ body{
     background:
     rgba(255,255,255,.15);
 }
-    
+
+/* =========================
+AX 채팅 버튼
+========================= */
+
+.ax-chat-box{
+
+    position:absolute;
+
+    top:75px;
+    right:90px;
+
+    text-align:center;
+
+    z-index:30;
+
+    animation:
+    fadeUp 1s ease;
+}
+
+.ax-chat-box h2{
+
+    font-size:2rem;
+
+    margin-bottom:18px;
+
+    color:white;
+
+    text-shadow:
+    0 0 12px rgba(255,255,255,.12);
+}
+
+.ax-chat-btn{
+
+    width:230px;
+
+    height:78px;
+
+    border:none;
+
+    cursor:pointer;
+
+    font-size:2.1rem;
+
+    font-weight:700;
+
+    letter-spacing:3px;
+
+    color:white;
+
+    border-radius:0;
+
+    background:
+    linear-gradient(
+    180deg,
+    rgba(82,105,150,.9),
+    rgba(56,74,112,.9)
+    );
+
+    border:
+    1px solid rgba(255,255,255,.12);
+
+    transition:.3s;
+
+    font-family:
+    'Cormorant Garamond', serif;
+
+    margin-bottom:15px;
+}
+
+.ax-chat-btn:hover{
+
+    transform:
+    scale(1.04);
+
+    box-shadow:
+    0 0 25px rgba(120,160,255,.25);
+}
+
+.ax-chat-box p{
+
+    opacity:.85;
+
+    line-height:1.8;
+
+    font-size:1rem;
+}
+
 .cards{
     display:flex;
     justify-content:center;
