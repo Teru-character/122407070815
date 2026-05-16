@@ -1,3 +1,4 @@
+```html id="eq34m9"
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -569,14 +570,18 @@ onclick="toggleMusic()">
 
 <script>
 
+/* =========================
+BGM
+========================= */
+
 const music =
 document.getElementById("bgm");
 
-/* BGM 볼륨 */
-
 music.volume = 0.22;
 
-/* 음성 */
+/* =========================
+음성
+========================= */
 
 const voices = [
     document.getElementById("ax09voice"),
@@ -588,7 +593,9 @@ voices.forEach(v => {
     v.volume = 1.0;
 });
 
-/* 음악 버튼 */
+/* =========================
+음악 버튼
+========================= */
 
 function toggleMusic(){
 
@@ -605,7 +612,9 @@ window.addEventListener("click", () => {
     music.play().catch(() => {});
 },{ once:true });
 
-/* 음성 재생 */
+/* =========================
+캐릭터 음성
+========================= */
 
 function playVoice(id){
 
@@ -628,7 +637,7 @@ function playVoice(id){
 }
 
 /* =========================
-미니게임
+미니게임 데이터
 ========================= */
 
 const phases = {
@@ -679,6 +688,10 @@ night:{
 
 };
 
+/* =========================
+요소
+========================= */
+
 const gameBg =
 document.getElementById("gameBg");
 
@@ -724,34 +737,29 @@ function updateGameTime(){
     const now =
     new Date();
 
-    const koreaHour =
-    Number(
-        new Intl.DateTimeFormat(
-            'ko-KR',
+    const seoul =
+    new Date(
+        now.toLocaleString(
+            "en-US",
             {
-                timeZone:'Asia/Seoul',
-                hour:'2-digit',
-                hour12:false
+                timeZone:"Asia/Seoul"
             }
-        ).format(now)
+        )
     );
 
-    const koreaMinute =
-    new Intl.DateTimeFormat(
-        'ko-KR',
-        {
-            timeZone:'Asia/Seoul',
-            minute:'2-digit'
-        }
-    ).format(now);
+    const hour =
+    seoul.getHours();
+
+    const minute =
+    seoul.getMinutes();
 
     const currentPhase =
-    getCurrentPhase(koreaHour);
+    getCurrentPhase(hour);
 
     /* 시계 */
 
     clock.innerText =
-    `${String(koreaHour).padStart(2,'0')}:${koreaMinute}`;
+    `${String(hour).padStart(2,"0")}:${String(minute).padStart(2,"0")}`;
 
     /* 시간대 */
 
@@ -778,20 +786,21 @@ function talkCharacter(){
     const now =
     new Date();
 
-    const koreaHour =
-    Number(
-        new Intl.DateTimeFormat(
-            'ko-KR',
+    const seoul =
+    new Date(
+        now.toLocaleString(
+            "en-US",
             {
-                timeZone:'Asia/Seoul',
-                hour:'2-digit',
-                hour12:false
+                timeZone:"Asia/Seoul"
             }
-        ).format(now)
+        )
     );
 
+    const hour =
+    seoul.getHours();
+
     const currentPhase =
-    getCurrentPhase(koreaHour);
+    getCurrentPhase(hour);
 
     dialog.innerText =
     currentPhase.dialogs[
@@ -831,14 +840,10 @@ function touchCharacter(){
 
 updateGameTime();
 
-/* 1초마다 갱신 */
-
 setInterval(updateGameTime,1000);
 
 </script>
 
 </body>
 </html>
-
-</body>
-</html>
+```
