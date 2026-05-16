@@ -1,15 +1,325 @@
 <!DOCTYPE html>
-
-<html lang="en">
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My GitHub Page</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>No pain, No gain.</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;500;700&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:
+    radial-gradient(circle at top, #242b45, #0b0d14 65%);
+    color:white;
+    font-family:'Cormorant Garamond', serif;
+    overflow-x:hidden;
+    min-height:100vh;
+}
+
+/* 배경 효과 */
+.bg-glow{
+    position:fixed;
+    width:500px;
+    height:500px;
+    border-radius:50%;
+    filter:blur(120px);
+    opacity:.12;
+    z-index:-1;
+    animation:float 8s infinite ease-in-out;
+}
+
+.blue{
+    background:#4ca7ff;
+    top:-100px;
+    left:-120px;
+}
+
+.yellow{
+    background:#ffe44c;
+    right:-120px;
+    top:150px;
+}
+
+.green{
+    background:#7bff84;
+    bottom:-150px;
+    left:40%;
+}
+
+@keyframes float{
+    0%{transform:translateY(0px);}
+    50%{transform:translateY(30px);}
+    100%{transform:translateY(0px);}
+}
+
+.container{
+    padding:50px 20px;
+    text-align:center;
+}
+
+.title{
+    font-family:'Great Vibes', cursive;
+    font-size:4rem;
+    margin-top:40px;
+    text-shadow:0 0 20px rgba(255,255,255,.2);
+    animation:fadeUp 1.5s ease;
+}
+
+.subtitle{
+    opacity:.7;
+    margin-top:10px;
+    margin-bottom:60px;
+    letter-spacing:2px;
+}
+
+.cards{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    flex-wrap:wrap;
+}
+
+.card{
+    width:280px;
+    height:380px;
+    border-radius:28px;
+    background:rgba(255,255,255,.05);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,.15);
+    overflow:hidden;
+    cursor:pointer;
+    transition:.4s;
+    position:relative;
+}
+
+.card:hover{
+    transform:translateY(-12px) scale(1.03);
+}
+
+.card::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    opacity:0;
+    transition:.4s;
+}
+
+.card:hover::before{
+    opacity:1;
+}
+
+.ax:hover{
+    box-shadow:0 0 35px rgba(76,167,255,.4);
+}
+
+.aiden:hover{
+    box-shadow:0 0 35px rgba(255,228,76,.4);
+}
+
+.david:hover{
+    box-shadow:0 0 35px rgba(123,255,132,.4);
+}
+
+.image-box{
+    height:260px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
+/* 이미지 자리 */
+.image-box img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.placeholder{
+    opacity:.35;
+    font-size:1.2rem;
+}
+
+.info{
+    padding:20px;
+}
+
+.name{
+    font-size:2rem;
+    margin-bottom:5px;
+}
+
+.color-line{
+    width:60px;
+    height:3px;
+    margin:10px auto;
+    border-radius:50px;
+}
+
+.ax-line{
+    background:#4ca7ff;
+}
+
+.aiden-line{
+    background:#ffe44c;
+}
+
+.david-line{
+    background:#7bff84;
+}
+
+.enter{
+    opacity:.65;
+    margin-top:10px;
+    letter-spacing:2px;
+}
+
+.music-btn{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.15);
+    color:white;
+    border-radius:999px;
+    padding:14px 22px;
+    cursor:pointer;
+    backdrop-filter:blur(10px);
+    transition:.3s;
+}
+
+.music-btn:hover{
+    transform:scale(1.08);
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@media(max-width:768px){
+
+.title{
+    font-size:3rem;
+}
+
+.card{
+    width:90%;
+    max-width:330px;
+}
+}
+</style>
 </head>
 
 <body>
-    <h1>Welcome to My Website</h1>
 
-    <p>This is a simple website hosted on GitHub Pages.</p>
+<div class="bg-glow blue"></div>
+<div class="bg-glow yellow"></div>
+<div class="bg-glow green"></div>
+
+<div class="container">
+
+<h1 class="title">No pain, No gain.</h1>
+<p class="subtitle">Character Archive</p>
+
+<div class="cards">
+
+<!-- AX-09 -->
+<div class="card ax"
+onclick="location.href='ax09.html'">
+
+<div class="image-box">
+<!-- 여기에 이미지 넣기 -->
+<div class="placeholder">
+AX-09 IMAGE
+</div>
+</div>
+
+<div class="info">
+<h2 class="name">Ax-09</h2>
+<div class="color-line ax-line"></div>
+<p class="enter">ENTER PROFILE</p>
+</div>
+</div>
+
+<!-- 에이든 -->
+<div class="card aiden"
+onclick="location.href='aiden.html'">
+
+<div class="image-box">
+<div class="placeholder">
+AIDEN IMAGE
+</div>
+</div>
+
+<div class="info">
+<h2 class="name">에이든 필립</h2>
+<div class="color-line aiden-line"></div>
+<p class="enter">ENTER PROFILE</p>
+</div>
+</div>
+
+<!-- 다비드 -->
+<div class="card david"
+onclick="location.href='david.html'">
+
+<div class="image-box">
+<div class="placeholder">
+DAVID IMAGE
+</div>
+</div>
+
+<div class="info">
+<h2 class="name">다비드 애셔</h2>
+<div class="color-line david-line"></div>
+<p class="enter">ENTER PROFILE</p>
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- BGM -->
+<audio id="bgm" autoplay loop>
+    <source src="bgm.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-btn" onclick="toggleMusic()">
+♫ Music
+</button>
+
+<script>
+const music =
+document.getElementById("bgm");
+
+function toggleMusic(){
+    if(music.paused){
+        music.play();
+    }else{
+        music.pause();
+    }
+}
+
+// 자동재생 제한 대비
+window.addEventListener("click", () => {
+    music.play();
+},{once:true});
+</script>
+
 </body>
 </html>
