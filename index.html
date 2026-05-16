@@ -339,6 +339,29 @@ onclick="toggleMusic()">
 const music =
 document.getElementById("bgm");
 
+/* -----------------
+   볼륨 기본값
+------------------ */
+
+/* BGM 볼륨 (0~1) */
+music.volume = 0.22;
+
+/* 음성 요소 */
+const voices = [
+    document.getElementById("ax09voice"),
+    document.getElementById("aidenvoice"),
+    document.getElementById("davidvoice")
+];
+
+/* 음성 볼륨 크게 */
+voices.forEach(v => {
+    v.volume = 1.0;
+});
+
+/* -----------------
+   음악 버튼
+------------------ */
+
 function toggleMusic(){
     if(music.paused){
         music.play();
@@ -352,16 +375,30 @@ window.addEventListener("click", () => {
     music.play().catch(() => {});
 },{ once:true });
 
-/* 캐릭터 음성 */
+/* -----------------
+   캐릭터 음성 재생
+------------------ */
+
 function playVoice(id){
 
     const voice =
     document.getElementById(id);
 
+    /* 다른 음성 끄기 */
+    voices.forEach(v => {
+        v.pause();
+        v.currentTime = 0;
+    });
+
+    /* BGM 잠깐 줄이기 */
+    music.volume = 0.08;
+
     voice.currentTime = 0;
     voice.play();
+
+    /* 음성 끝나면 BGM 복구 */
+    voice.onended = () => {
+        music.volume = 0.22;
+    };
 }
 </script>
-
-</body>
-</html>
