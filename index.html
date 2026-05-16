@@ -107,7 +107,7 @@ body{
 
     backdrop-filter:blur(14px);
 
-    transition:.4s;
+    transition:.35s;
     position:relative;
 }
 
@@ -117,14 +117,8 @@ body{
     scale(1.02);
 }
 
-/* 게임 UI 느낌 빛 */
-.card::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    border-radius:28px;
-    opacity:0;
-    transition:.4s;
+.card:active{
+    transform:scale(.98);
 }
 
 .ax:hover{
@@ -142,7 +136,7 @@ body{
     0 0 35px rgba(110,255,124,.25);
 }
 
-/* 이미지 영역 */
+/* 이미지 */
 .image-box{
     width:100%;
     height:300px;
@@ -153,7 +147,6 @@ body{
     overflow:hidden;
 }
 
-/* 이미지 정상 표시 */
 .image-box img{
     width:100%;
     height:100%;
@@ -166,7 +159,7 @@ body{
     transform:scale(1.03);
 }
 
-/* 이름 */
+/* 정보 */
 .info{
     padding:20px;
 }
@@ -195,9 +188,10 @@ body{
 }
 
 .enter{
-    opacity:.7;
+    opacity:.75;
     letter-spacing:2px;
     margin-top:10px;
+    font-size:1rem;
 }
 
 /* 음악 버튼 */
@@ -226,7 +220,6 @@ body{
     transform:scale(1.08);
 }
 
-/* 등장 애니메이션 */
 @keyframes fadeUp{
     from{
         opacity:0;
@@ -260,7 +253,6 @@ body{
 
 <body>
 
-<!-- 배경 -->
 <div class="bg-glow blue"></div>
 <div class="bg-glow yellow"></div>
 <div class="bg-glow green"></div>
@@ -279,7 +271,8 @@ Character Archive
 
 <!-- AX-09 -->
 <div class="card ax"
-onclick="location.href='ax09.html'">
+onclick="playVoice('ax09voice')"
+ondblclick="location.href='ax09.html'">
 
 <div class="image-box">
 <img src="ax09.png" alt="Ax-09">
@@ -288,13 +281,14 @@ onclick="location.href='ax09.html'">
 <div class="info">
 <h2 class="name">Ax-09</h2>
 <div class="color-line ax-line"></div>
-<p class="enter">ENTER PROFILE</p>
+<p class="enter">!DOUBLE CLICK!</p>
 </div>
 </div>
 
 <!-- 에이든 -->
 <div class="card aiden"
-onclick="location.href='aiden.html'">
+onclick="playVoice('aidenvoice')"
+ondblclick="location.href='aiden.html'">
 
 <div class="image-box">
 <img src="aiden.png" alt="에이든 필립">
@@ -303,13 +297,14 @@ onclick="location.href='aiden.html'">
 <div class="info">
 <h2 class="name">에이든 필립</h2>
 <div class="color-line aiden-line"></div>
-<p class="enter">ENTER PROFILE</p>
+<p class="enter">!DOUBLE CLICK!</p>
 </div>
 </div>
 
 <!-- 다비드 -->
 <div class="card david"
-onclick="location.href='david.html'">
+onclick="playVoice('davidvoice')"
+ondblclick="location.href='david.html'">
 
 <div class="image-box">
 <img src="david.png" alt="다비드 애셔">
@@ -318,7 +313,7 @@ onclick="location.href='david.html'">
 <div class="info">
 <h2 class="name">다비드 애셔</h2>
 <div class="color-line david-line"></div>
-<p class="enter">ENTER PROFILE</p>
+<p class="enter">!DOUBLE CLICK!</p>
 </div>
 </div>
 
@@ -329,6 +324,11 @@ onclick="location.href='david.html'">
 <audio id="bgm" autoplay loop>
 <source src="bgm.mp3" type="audio/mpeg">
 </audio>
+
+<!-- 캐릭터 음성 -->
+<audio id="ax09voice" src="ax09.mp3"></audio>
+<audio id="aidenvoice" src="aiden.mp3"></audio>
+<audio id="davidvoice" src="david.mp3"></audio>
 
 <button class="music-btn"
 onclick="toggleMusic()">
@@ -347,10 +347,20 @@ function toggleMusic(){
     }
 }
 
-/* 브라우저 자동재생 제한 대응 */
+/* 자동재생 제한 대응 */
 window.addEventListener("click", () => {
     music.play().catch(() => {});
 },{ once:true });
+
+/* 캐릭터 음성 */
+function playVoice(id){
+
+    const voice =
+    document.getElementById(id);
+
+    voice.currentTime = 0;
+    voice.play();
+}
 </script>
 
 </body>
