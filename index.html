@@ -84,6 +84,83 @@ body{
     margin-bottom:60px;
 }
 
+/* =========================
+다비드 타이머 박스
+========================= */
+
+.david-timer-box{
+
+    position:absolute;
+
+    top:40px;
+    left:40px;
+
+    text-align:left;
+
+    z-index:20;
+
+    animation:
+    fadeUp 1s ease;
+}
+
+.david-timer-box h2{
+
+    font-size:2rem;
+
+    margin-bottom:8px;
+
+    color:white;
+
+    text-shadow:
+    0 0 12px rgba(255,255,255,.1);
+}
+
+.david-timer-box p{
+
+    opacity:.75;
+
+    line-height:1.7;
+
+    margin-bottom:18px;
+}
+
+.timer-enter-btn{
+
+    border:none;
+
+    padding:14px 24px;
+
+    border-radius:999px;
+
+    background:
+    rgba(255,255,255,.08);
+
+    color:white;
+
+    cursor:pointer;
+
+    backdrop-filter:blur(12px);
+
+    border:
+    1px solid rgba(255,255,255,.12);
+
+    transition:.3s;
+
+    font-family:
+    'Cormorant Garamond', serif;
+
+    letter-spacing:2px;
+}
+
+.timer-enter-btn:hover{
+
+    transform:
+    scale(1.06);
+
+    background:
+    rgba(255,255,255,.15);
+}
+    
 .cards{
     display:flex;
     justify-content:center;
@@ -477,6 +554,26 @@ No pain, No gain.
 <p class="subtitle">
 Character Archive
 </p>
+
+div class="david-timer-box">
+
+<h2>
+다비드 타이머
+</h2>
+
+<p>
+(다비드가 목소리로 타이머를 해줘요!)
+</p>
+
+<button
+class="timer-enter-btn"
+onclick="location.href='david_timer.html'">
+
+TIMER ENTER
+
+</button>
+
+</div>
 
 <div class="cards">
 
