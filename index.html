@@ -199,6 +199,35 @@ body{
     font-size:1rem;
 }
 
+/* =========================
+중간 안내문
+========================= */
+
+.intro-text{
+
+    width:100%;
+    text-align:center;
+
+    margin-top:90px;
+    margin-bottom:40px;
+
+    line-height:2.2;
+
+    font-size:1.25rem;
+
+    color:
+    rgba(255,255,255,.82);
+
+    text-shadow:
+    0 0 12px rgba(255,255,255,.05);
+}
+
+.intro-text p{
+
+    animation:
+    fadeUp 1s ease;
+}
+
 /* 음악 버튼 */
 
 .music-btn{
@@ -258,7 +287,7 @@ body{
     position:absolute;
     inset:0;
 
-    background-image:url('bg_day.jpg');
+    background-image:url('bg_day.jpg?v=1');
     background-size:cover;
     background-position:center;
 
@@ -500,6 +529,34 @@ ondblclick="location.href='david.html'">
 </div>
 
 </div>
+
+<!-- =========================
+중간 안내문
+========================= -->
+
+<div class="intro-text">
+
+<p>
+프로필 사진 한번 클릭시 보이스가 출력됩니다.
+</p>
+
+<br>
+
+<p>
+매일 매일 에이든과 이야기를 나눠보세요.
+</p>
+
+<p>
+특별한 기념일 / 에이든에게 특별한 날 /
+특정 시간마다 대사가 바뀝니다.
+</p>
+
+<p>
+(특정한 날에 오면 이벤트가 발생할수도 있습니다.)
+</p>
+
+</div>
+
 </div>
 
 <!-- =========================
@@ -521,7 +578,7 @@ ondblclick="location.href='david.html'">
 
 <img
 id="character"
-src="char_day.png"
+src="char_day.png?v=1"
 alt="캐릭터">
 
 </div>
@@ -533,7 +590,7 @@ alt="캐릭터">
 </div>
 
 <p id="dialog">
-오! 오셨네요!
+오늘도 왔네.
 </p>
 
 <div class="buttons">
@@ -569,18 +626,10 @@ onclick="toggleMusic()">
 
 <script>
 
-/* =========================
-BGM
-========================= */
-
 const music =
 document.getElementById("bgm");
 
 music.volume = 0.22;
-
-/* =========================
-음성
-========================= */
 
 const voices = [
     document.getElementById("ax09voice"),
@@ -592,10 +641,6 @@ voices.forEach(v => {
     v.volume = 1.0;
 });
 
-/* =========================
-음악 버튼
-========================= */
-
 function toggleMusic(){
 
     if(music.paused){
@@ -605,15 +650,9 @@ function toggleMusic(){
     }
 }
 
-/* 자동재생 대응 */
-
 window.addEventListener("click", () => {
     music.play().catch(() => {});
 },{ once:true });
-
-/* =========================
-캐릭터 음성
-========================= */
 
 function playVoice(id){
 
@@ -643,8 +682,8 @@ const phases = {
 
 morning:{
     name:"아침",
-    bg:"bg_morning.jpg",
-    char:"char_morning.png",
+    bg:"bg_morning.jpg?v=1",
+    char:"char_morning.png?v=1",
     dialogs:[
         "good morning~! 이야, Teru님, 무리님! 좋은 아침이에요! 잘 주무셨나요? 네? 설마 아니죠? 제발 주무셨다고 해줘요!",
         "어라? 일찍 일어났네요! 언제 일어나셨대요? 아침형 인간! 멋있네요! 근데, 설마 안 주무신건 아니죠? 눈에 다크서클이…?",
@@ -654,8 +693,8 @@ morning:{
 
 day:{
     name:"낮",
-    bg:"bg_day.jpg",
-    char:"char_day.png",
+    bg:"bg_day.jpg?v=1",
+    char:"char_day.png?v=1",
     dialogs:[
         "Teru님, 무리님! 좋은 점심! 뭐하다 오셨나요? 저는, 벨라 몰래 농땡이좀 치고 있었어요....! 이거, 비밀이에요!",
         "점심은 드셨나요? 저요? 아하하! 전 방금 먹었어요! 안 먹었으면 빨리 드세요!",
@@ -665,8 +704,8 @@ day:{
 
 evening:{
     name:"저녁",
-    bg:"bg_evening.jpg",
-    char:"char_evening.png",
+    bg:"bg_evening.jpg?v=1",
+    char:"char_evening.png?v=1",
     dialogs:[
         "노을이 정말 예쁘네요~! 이런 날엔 놀러다녀야 하는데, 아이고 내 팔자야…",
         "Teru님,  무리님! 오늘 하루 어땠어요? 저는 완전 최고. 음~ 100점 만점에~ 100점!",
@@ -676,8 +715,8 @@ evening:{
 
 night:{
     name:"밤",
-    bg:"bg_night.jpg",
-    char:"char_night.png",
+    bg:"bg_night.jpg?v=1",
+    char:"char_night.png?v=1",
     dialogs:[
         "Teru님, 무리님! 안 자고 있었어요? 신작 게임 같이 할래요? 저는 요새 다비드씨랑 서브노티카2 하고있어요! 매일 절 일부로 죽이시지 뭐에요....",
         "밤 공기가 좋네요! 다비드 씨 몰래 나가서 술 한잔 할까…",
@@ -686,10 +725,6 @@ night:{
 }
 
 };
-
-/* =========================
-요소
-========================= */
 
 const gameBg =
 document.getElementById("gameBg");
@@ -705,10 +740,6 @@ document.getElementById("timeText");
 
 const dialog =
 document.getElementById("dialog");
-
-/* =========================
-시간대 판별
-========================= */
 
 function getCurrentPhase(hour){
 
@@ -726,10 +757,6 @@ function getCurrentPhase(hour){
 
     return phases.night;
 }
-
-/* =========================
-실시간 서울 시간
-========================= */
 
 function updateGameTime(){
 
@@ -755,30 +782,18 @@ function updateGameTime(){
     const currentPhase =
     getCurrentPhase(hour);
 
-    /* 시계 */
-
     clock.innerText =
     `${String(hour).padStart(2,"0")}:${String(minute).padStart(2,"0")}`;
-
-    /* 시간대 */
 
     timeText.innerText =
     currentPhase.name;
 
-    /* 배경 */
-
     gameBg.style.backgroundImage =
     `url('${currentPhase.bg}')`;
-
-    /* 캐릭터 */
 
     character.src =
     currentPhase.char;
 }
-
-/* =========================
-대화하기
-========================= */
 
 function talkCharacter(){
 
@@ -810,17 +825,13 @@ function talkCharacter(){
     ];
 }
 
-/* =========================
-쓰다듬기
-========================= */
-
 function touchCharacter(){
 
     character.style.transform =
     "scale(1.05)";
 
     dialog.innerText =
-    "!";
+    ".....!";
 
     setTimeout(()=>{
 
@@ -832,10 +843,6 @@ function touchCharacter(){
 
     },300);
 }
-
-/* =========================
-시작
-========================= */
 
 updateGameTime();
 
