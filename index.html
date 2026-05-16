@@ -513,8 +513,8 @@ ondblclick="location.href='david.html'">
 <div class="game-overlay"></div>
 
 <div class="time-box">
-<div id="clock">14:00</div>
-<p id="timeText">낮</p>
+<div id="clock">00:00</div>
+<p id="timeText">시간 로딩중...</p>
 </div>
 
 <div class="character-area">
@@ -544,10 +544,6 @@ alt="캐릭터">
 
 <button onclick="talkCharacter()">
 대화하기
-</button>
-
-<button onclick="changeTime()">
-시간 변경
 </button>
 
 </div>
@@ -635,11 +631,10 @@ function playVoice(id){
 미니게임
 ========================= */
 
-const phases = [
+const phases = {
 
-{
+morning:{
     name:"아침",
-    clock:"08:00",
     bg:"bg_morning.jpg",
     char:"char_morning.png",
     dialogs:[
@@ -649,9 +644,8 @@ const phases = [
     ]
 },
 
-{
+day:{
     name:"낮",
-    clock:"14:00",
     bg:"bg_day.jpg",
     char:"char_day.png",
     dialogs:[
@@ -661,9 +655,8 @@ const phases = [
     ]
 },
 
-{
+evening:{
     name:"저녁",
-    clock:"18:30",
     bg:"bg_evening.jpg",
     char:"char_evening.png",
     dialogs:[
@@ -673,9 +666,8 @@ const phases = [
     ]
 },
 
-{
+night:{
     name:"밤",
-    clock:"23:40",
     bg:"bg_night.jpg",
     char:"char_night.png",
     dialogs:[
@@ -685,9 +677,7 @@ const phases = [
     ]
 }
 
-];
-
-let currentPhase = 1;
+};
 
 const gameBg =
 document.getElementById("gameBg");
@@ -704,64 +694,117 @@ document.getElementById("timeText");
 const dialog =
 document.getElementById("dialog");
 
-/* 시간 적용 */
+/* =========================
+시간대 판별
+========================= */
 
-function applyPhase(){
+function getCurrentPhase(hour){
 
-    const phase =
-    phases[currentPhase];
-
-    gameBg.style.backgroundImage =
-    `url('${phase.bg}')`;
-
-    character.src =
-    phase.char;
-
-    clock.innerText =
-    phase.clock;
-
-    timeText.innerText =
-    phase.name;
-
-    dialog.innerText =
-    phase.dialogs[
-        Math.floor(
-            Math.random()
-            * phase.dialogs.length
-        )
-    ];
-}
-
-/* 시간 변경 */
-
-function changeTime(){
-
-    currentPhase++;
-
-    if(currentPhase >= phases.length){
-        currentPhase = 0;
+    if(hour >= 5 && hour < 11){
+        return phases.morning;
     }
 
-    applyPhase();
+    if(hour >= 11 && hour < 18){
+        return phases.day;
+    }
+
+    if(hour >= 18 && hour < 21){
+        return phases.evening;
+    }
+
+    return phases.night;
 }
 
-/* 대화 */
+/* =========================
+실시간 서울 시간
+========================= */
+
+function updateGameTime(){
+
+    const now =
+    new Date();
+
+    const koreaHour =
+    Number(
+        new Intl.DateTimeFormat(
+            'ko-KR',
+            {
+                timeZone:'Asia/Seoul',
+                hour:'2-digit',
+                hour12:false
+            }
+        ).format(now)
+    );
+
+    const koreaMinute =
+    new Intl.DateTimeFormat(
+        'ko-KR',
+        {
+            timeZone:'Asia/Seoul',
+            minute:'2-digit'
+        }
+    ).format(now);
+
+    const currentPhase =
+    getCurrentPhase(koreaHour);
+
+    /* 시계 */
+
+    clock.innerText =
+    `${String(koreaHour).padStart(2,'0')}:${koreaMinute}`;
+
+    /* 시간대 */
+
+    timeText.innerText =
+    currentPhase.name;
+
+    /* 배경 */
+
+    gameBg.style.backgroundImage =
+    `url('${currentPhase.bg}')`;
+
+    /* 캐릭터 */
+
+    character.src =
+    currentPhase.char;
+}
+
+/* =========================
+대화하기
+========================= */
 
 function talkCharacter(){
 
-    const phase =
-    phases[currentPhase];
+    const now =
+    new Date();
+
+    const koreaHour =
+    Number(
+        new Intl.DateTimeFormat(
+            'ko-KR',
+            {
+                timeZone:'Asia/Seoul',
+                hour:'2-digit',
+                hour12:false
+            }
+        ).format(now)
+    );
+
+    const currentPhase =
+    getCurrentPhase(koreaHour);
 
     dialog.innerText =
-    phase.dialogs[
+    currentPhase.dialogs[
         Math.floor(
             Math.random()
-            * phase.dialogs.length
+            * currentPhase.dialogs.length
         )
     ];
 }
 
-/* 쓰다듬기 */
+/* =========================
+쓰다듬기
+========================= */
 
 function touchCharacter(){
 
@@ -782,9 +825,20 @@ function touchCharacter(){
     },300);
 }
 
-applyPhase();
+/* =========================
+시작
+========================= */
+
+updateGameTime();
+
+/* 1초마다 갱신 */
+
+setInterval(updateGameTime,1000);
 
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
